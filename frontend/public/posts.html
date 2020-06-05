@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    async function render() {
+      if (localStorage.getItem("posts")) {
+        let arr_post = await localStorage.getItem("posts").split("},").map(item => item)
+        let arr_correct = arr_post
+          .map((item, key) =>
+            (key == arr_post.length - 1) ? JSON.parse(item) : JSON.parse(item + "}"))
+
+        user = localStorage.getItem("user_temp") ?
+          localStorage.getItem("user_temp") : ""
+
+        let arr_renderer = []
+        arr_correct.forEach(item => {
+
+          if (item.user_post == user) {
+            arr_renderer.push(item)
+          }
+
+        });
+
+
+        await arr_renderer.map(item => {
+          var section = document.getElementsByClassName("posts-main")[0]
+          var div = document.createElement("div")
+          div.setAttribute("class", "post")
+
+          var h1 = document.createElement("h1")
+          h1.setAttribute("id", "title")
+          var h1_txt = document.createTextNode(item.title)
+          h1.appendChild(h1_txt)
+
+          var p = document.createElement("p")
+          p.setAttribute("class", "text-post")
+          var p_txt = document.createTextNode(item.text)
+          p.appendChild(p_txt)
+
+          var img = document.createElement("img")
+          img.setAttribute("id", "img-post")
+          img.setAttribute("src", `${item.img_src.toString()}`)
+          img.setAttribute("alt", "IMAGEM POST")
+          img.setAttribute("width", "200px")
+          img.setAttribute("height", "200px")
+
+
+          div.appendChild(h1)
+          div.appendChild(p)
+          div.appendChild(img)
+
+          section.appendChild(div)
+
+
+
+
+
+        })
+      }
+
+    }
+
+
+  </script>
+
+  <title>FMMBOOK</title>
+</head>
+
+<body class="posts" onload="render()">
+  <nav>
+    <ul>
+      <li><a class="signout" href="index.html" style="margin-right: 10px;">SIGN OUT</a></li>
+      <li><a href="#" onclick="hiddeNewPost()">+ NEW POST</a></li>
+    </ul>
+  </nav>
+  <section class="posts-main">
+
+  </section>
+  <div id="add-post" class="hide">
+    <form class="form-post" methodo="GET">
+      <input type="text" placeholder="TITLE" id="title-new-post" />
+      <textarea id="text-new-post" cols="30" rows="10" placeholder="TEXT"></textarea>
+      <input type="url" id="img-new-post" placeholder="URL DA IMAGEM" />
+      <a href="#" class="button-post">POST</a>
+    </form>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="./script.js"></script>
+</body>
+
+</html>
