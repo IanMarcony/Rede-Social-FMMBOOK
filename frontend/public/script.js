@@ -36,7 +36,7 @@ async function createAccount() {
     }
 
     await localStorage.setItem("users", localStorage.getItem("users") ? localStorage.getItem("users").concat("," + JSON.stringify(user_saved)) : JSON.stringify(user_saved))
-    window.location.assign("http://localhost:5500/frontend/public/index.html")
+    window.location.assign("./index.html")
     alert("Usuário Criado")
 
   }
@@ -57,7 +57,7 @@ async function authentication() {
         localStorage.setItem("user_temp", user)
 
         warning_alert = false
-        window.location.assign("http://localhost:5500/frontend/public/posts.html")
+        window.location.assign("./posts.html")
 
       } else { return false }
     })
@@ -98,7 +98,7 @@ async function createPost() {
     await localStorage.setItem("posts", localStorage.getItem("posts") ? localStorage.getItem("posts").concat("," + JSON.stringify(post_saved)) : JSON.stringify(post_saved))
 
 
-    window.location.assign("http://localhost:5500/frontend/public/posts.html")
+    window.location.assign("./posts.html")
 
   }
 
